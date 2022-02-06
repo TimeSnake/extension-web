@@ -1,0 +1,10 @@
+main: de.timesnake.extension.web.main.ExWeb
+version: 1.0
+name: extension-web
+author: Mn
+depends: [ basic-proxy ]
+
+commands:
+  web:
+     
+     

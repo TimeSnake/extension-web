@@ -7,7 +7,10 @@ import de.timesnake.extension.web.chat.Plugin;
 
 public class AccountManager {
 
-    public static final char[] CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    public static final char[] CHARS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
+            'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+            'V', 'W', 'X', 'Y', 'Z'};
 
     private final AccountDatabase database;
     private final AccountConfig config;
@@ -19,7 +22,11 @@ public class AccountManager {
         Network.printText(Plugin.WEB, "Loaded account config");
 
         if (this.config.isEnabled()) {
-            this.database = new AccountDatabase(this.config.getDatabaseName(), this.config.getDatabaseUrl(), this.config.getDatabaseUser(), this.config.getDatabasePassword(), this.config.getDatabaseTableName(), this.config.getDatabaseUuidColumnName(), this.config.getDatabaseNameColumnName(), this.config.getDatabaseCodeColumnName(), this.config.getDatabaseDateColumnName());
+            this.database = new AccountDatabase(this.config.getDatabaseName(), this.config.getDatabaseUrl(),
+                    this.config.getDatabaseUser(), this.config.getDatabasePassword(),
+                    this.config.getDatabaseTableName(), this.config.getDatabaseUuidColumnName(),
+                    this.config.getDatabaseNameColumnName(), this.config.getDatabaseCodeColumnName(),
+                    this.config.getDatabaseDateColumnName());
         } else {
             this.database = null;
         }

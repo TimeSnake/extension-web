@@ -18,7 +18,8 @@ public class ExWeb extends Plugin {
 
         accountManager = new AccountManager();
 
-        Network.getCommandHandler().addCommand(this, this.getProxy().getPluginManager(), "web", new LoginCmd(), de.timesnake.extension.web.chat.Plugin.WEB);
+        Network.getCommandHandler().addCommand(this, this.getProxy().getPluginManager(), "web", new LoginCmd(),
+                de.timesnake.extension.web.chat.Plugin.WEB);
 
     }
 

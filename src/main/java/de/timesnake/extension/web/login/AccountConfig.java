@@ -16,10 +16,10 @@ public class AccountConfig extends ExFile {
 
     private static final String ENABLED = "enabled";
 
-    private static final String VERIFCATION_CODE_LENGTH = "verification_code.length";
+    private static final String VERIFICATION_CODE_LENGTH = "verification_code.length";
 
     public AccountConfig() {
-        super("exweb", "login_config");
+        super("exweb", "login_config.toml");
     }
 
     public String getDatabaseName() {
@@ -55,7 +55,7 @@ public class AccountConfig extends ExFile {
     }
 
     public Integer getVerifcationCodeLength() {
-        return super.getInt(VERIFCATION_CODE_LENGTH);
+        return super.getLong(VERIFICATION_CODE_LENGTH).intValue();
     }
 
     public String getDatabaseDateColumnName() {

@@ -11,18 +11,16 @@ import java.util.UUID;
 public class AccountDatabase {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    protected String name;
-    protected Connection connection;
-    protected String url;
-    private final String user;
-    private final String password;
-
     protected final String tableName;
     protected final String uuidColumnName;
     protected final String nameColumnName;
     protected final String codeColumnName;
     protected final String dateColumnName;
+    private final String user;
+    private final String password;
+    protected String name;
+    protected Connection connection;
+    protected String url;
 
     public AccountDatabase(String name, String url, String user, String password, String tableName,
                            String uuidColumnName, String nameColumnName, String codeColumnName, String dateColumnName) {
@@ -105,39 +103,9 @@ public class AccountDatabase {
         try {
             PreparedStatement ps =
                     this.connection.prepareStatement("INSERT INTO " + this.tableName + " (" + this.uuidColumnName +
-                            ")" + "VALUES (\"" + uuid.toString().replace("-", "") + "\");");
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        try {
-            PreparedStatement ps =
-                    this.connection.prepareStatement("UPDATE " + this.tableName + " SET " + this.nameColumnName + " =" +
-                            " \"" + name + "\" WHERE " + this.uuidColumnName + "=\"" + uuid.toString().replace("-",
-                            "") + "\";");
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        try {
-            PreparedStatement ps =
-                    this.connection.prepareStatement("UPDATE " + this.tableName + " SET " + this.codeColumnName + " =" +
-                            " \"" + code + "\" WHERE " + this.uuidColumnName + "=\"" + uuid.toString().replace("-",
-                            "") + "\";");
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        try {
-            PreparedStatement ps =
-                    this.connection.prepareStatement("UPDATE " + this.tableName + " SET " + this.dateColumnName + " =" +
-                            " \"" + DATE_FORMAT.format(new Date()) + "\" WHERE " + this.uuidColumnName + "=\"" + uuid.toString().replace("-", "") + "\";");
+                            ", " + this.nameColumnName + ", " + this.codeColumnName + ", " + this.dateColumnName + ")" +
+                            "VALUES (\"" + uuid.toString().replace("-", "") +
+                            "\", \"" + name + "\", \"" + code + "\", \"" + DATE_FORMAT.format(new Date()) + "\");");
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

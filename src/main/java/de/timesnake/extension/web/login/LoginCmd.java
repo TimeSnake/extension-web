@@ -43,10 +43,10 @@ public class LoginCmd implements CommandListener<Sender, Argument> {
                     sender.sendPluginMessage(ChatColor.PERSONAL + "Your old link is now expired");
                 }
                 TextComponent link = Component.text(Chat.getSenderPlugin(Plugin.WEB) + ChatColor.PERSONAL +
-                        ChatColor.UNDERLINE + "Click here" + ChatColor.PERSONAL + " to open your personal login link");
-                link.hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT,
-                        Component.text("Click to open the link, " + ChatColor.WARNING + "do NOT share with others")));
-                link.clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, url.getUrl()));
+                                ChatColor.UNDERLINE + "Click here" + ChatColor.PERSONAL + " to open your personal login link")
+                        .hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT,
+                                Component.text("Click to open the link, " + ChatColor.WARNING + "do NOT share with others")))
+                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, url.getUrl()));
                 sender.getPlayer().sendMessage(link);
             } else {
                 sender.sendPluginMessage(ChatColor.WARNING + "Error during login. Please contact an admin!");

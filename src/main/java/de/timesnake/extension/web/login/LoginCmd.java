@@ -5,15 +5,15 @@ import de.timesnake.basic.proxy.util.chat.Sender;
 import de.timesnake.basic.proxy.util.user.User;
 import de.timesnake.extension.web.chat.Plugin;
 import de.timesnake.extension.web.main.ExWeb;
-import de.timesnake.library.basic.util.chat.ChatColor;
+import de.timesnake.library.basic.util.chat.ExTextColor;
 import de.timesnake.library.extension.util.chat.Chat;
 import de.timesnake.library.extension.util.cmd.Arguments;
 import de.timesnake.library.extension.util.cmd.CommandListener;
 import de.timesnake.library.extension.util.cmd.ExCommand;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
+import net.kyori.adventure.text.format.TextDecoration;
 
 import java.util.List;
 
@@ -40,16 +40,16 @@ public class LoginCmd implements CommandListener<Sender, Argument> {
 
             if (url != null) {
                 if (url.expiredOldCode()) {
-                    sender.sendPluginMessage(ChatColor.PERSONAL + "Your old link is now expired");
+                    sender.sendPluginMessage(Component.text("Your old link is now expired", ExTextColor.WARNING));
                 }
-                TextComponent link = Component.text(Chat.getSenderPlugin(Plugin.WEB) + ChatColor.PERSONAL +
-                                ChatColor.UNDERLINE + "Click here" + ChatColor.PERSONAL + " to open your personal login link")
+                sender.getPlayer().sendMessage(Chat.getSenderPlugin(Plugin.WEB)
+                        .append(Component.text("Click here", ExTextColor.PERSONAL, TextDecoration.UNDERLINED))
+                        .append(Component.text(" to open your personal login link", ExTextColor.PERSONAL))
                         .hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT,
-                                Component.text("Click to open the link, " + ChatColor.WARNING + "do NOT share with others")))
-                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, url.getUrl()));
-                sender.getPlayer().sendMessage(link);
+                                Component.text("Click to open the link, do NOT share with others", ExTextColor.WARNING)))
+                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, url.getUrl())));
             } else {
-                sender.sendPluginMessage(ChatColor.WARNING + "Error during login. Please contact an admin!");
+                sender.sendPluginMessage(Component.text("Error during login. Please contact an admin!", ExTextColor.WARNING));
             }
         }
     }

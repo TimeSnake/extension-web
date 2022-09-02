@@ -10,7 +10,7 @@ plugins {
 repositories {
     mavenLocal()
     maven {
-        url = uri('https://papermc.io/repo/repository/maven-public/')
+        url = uri 'https://papermc.io/repo/repository/maven-public/'
     }
 
     maven {
@@ -18,19 +18,25 @@ repositories {
     }
 
     maven {
-        url = uri('https://repo.maven.apache.org/maven2/')
+        url = uri 'https://repo.maven.apache.org/maven2/'
     }
+    mavenCentral()
 }
 
 dependencies {
-    implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.6'
+
     compileOnly 'de.timesnake:basic-proxy:1.0-SNAPSHOT'
-    compileOnly 'de.timesnake:channel-proxy:1.0-SNAPSHOT'
-    compileOnly 'de.timesnake:channel-api:1.0-SNAPSHOT'
+
     compileOnly 'de.timesnake:database-proxy:1.0-SNAPSHOT'
     compileOnly 'de.timesnake:database-api:1.0-SNAPSHOT'
+
+    compileOnly 'de.timesnake:channel-proxy:1.0-SNAPSHOT'
+    compileOnly 'de.timesnake:channel-api:1.0-SNAPSHOT'
+
     compileOnly 'de.timesnake:library-extension:1.0-SNAPSHOT'
     compileOnly 'de.timesnake:library-basic:1.0-SNAPSHOT'
+
     compileOnly 'com.velocitypowered:velocity-api:3.1.1'
     annotationProcessor 'com.velocitypowered:velocity-api:3.1.1'
 }

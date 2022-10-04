@@ -7,6 +7,7 @@ import de.timesnake.extension.web.chat.Plugin;
 import de.timesnake.extension.web.main.ExWeb;
 import de.timesnake.library.basic.util.chat.ExTextColor;
 import de.timesnake.library.extension.util.chat.Chat;
+import de.timesnake.library.extension.util.chat.Code;
 import de.timesnake.library.extension.util.cmd.Arguments;
 import de.timesnake.library.extension.util.cmd.CommandListener;
 import de.timesnake.library.extension.util.cmd.ExCommand;
@@ -19,6 +20,8 @@ import java.util.List;
 
 public class LoginCmd implements CommandListener<Sender, Argument> {
 
+    private Code.Permission perm;
+
     @Override
     public void onCommand(Sender sender, ExCommand<Sender, Argument> cmd, Arguments<Argument> args) {
         if (!sender.isPlayer(true)) {
@@ -29,7 +32,7 @@ public class LoginCmd implements CommandListener<Sender, Argument> {
             return;
         }
 
-        if (!sender.hasPermission("exweb.login", 0)) {
+        if (!sender.hasPermission(this.perm)) {
             return;
         }
 
@@ -60,5 +63,10 @@ public class LoginCmd implements CommandListener<Sender, Argument> {
             return List.of("login");
         }
         return null;
+    }
+
+    @Override
+    public void loadCodes(de.timesnake.library.extension.util.chat.Plugin plugin) {
+        this.perm = plugin.createPermssionCode("web", "exweb.login");
     }
 }

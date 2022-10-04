@@ -33,7 +33,7 @@ public class AccountDatabase {
         this.nameColumnName = nameColumnName;
         this.codeColumnName = codeColumnName;
         this.dateColumnName = dateColumnName;
-        this.connect();
+        Network.runTaskAsync(this::connect);
     }
 
     public String getUrl() {

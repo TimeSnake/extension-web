@@ -1,5 +1,5 @@
 /*
- * extension-web.main
+ * workspace.extension-web.main
  * Copyright (C) 2022 timesnake
  *
  * This program is free software; you can redistribute it and/or
@@ -22,7 +22,7 @@ import java.util.UUID;
 
 public class LoginUrl {
 
-    public static final String URL = "http://timesnake.de/signup?";
+    public static final String URL = "https://timesnake.de/signup?";
     public static final String VERIFICATION = "code=";
     public static final String UUID = "uuid=";
     public static final String NAME = "name=";
@@ -57,6 +57,9 @@ public class LoginUrl {
     }
 
     public String getUrl() {
-        return URL + VERIFICATION + this.code + SPLITTER + UUID + this.uuid.toString().replace("-", "") + SPLITTER + NAME + this.name;
+        return String.join(SPLITTER,
+                URL + VERIFICATION + this.code,
+                UUID + this.uuid.toString().replace("-", ""),
+                NAME + this.name);
     }
 }

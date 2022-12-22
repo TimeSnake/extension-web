@@ -1,5 +1,5 @@
 /*
- * extension-web.main
+ * de.timesnake.workspace.extension-web.main
  * Copyright (C) 2022 timesnake
  *
  * This program is free software; you can redistribute it and/or
@@ -20,7 +20,7 @@ package de.timesnake.extension.web.login;
 
 import de.timesnake.basic.proxy.util.file.ExFile;
 
-public class AccountConfig extends ExFile {
+public class Config extends ExFile {
 
     private static final String DATABASE_NAME = "database.name";
     private static final String DATABASE_URL = "database.url";
@@ -36,8 +36,8 @@ public class AccountConfig extends ExFile {
 
     private static final String VERIFICATION_CODE_LENGTH = "verification_code.length";
 
-    public AccountConfig() {
-        super("exweb", "login_config.toml");
+    public Config() {
+        super("extension-web", "config.toml");
     }
 
     public String getDatabaseName() {

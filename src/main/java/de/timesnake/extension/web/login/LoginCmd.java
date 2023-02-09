@@ -23,10 +23,11 @@ import net.kyori.adventure.text.format.TextDecoration;
 
 public class LoginCmd implements CommandListener<Sender, Argument> {
 
-    private Code.Permission perm;
+    private Code perm;
 
     @Override
-    public void onCommand(Sender sender, ExCommand<Sender, Argument> cmd, Arguments<Argument> args) {
+    public void onCommand(Sender sender, ExCommand<Sender, Argument> cmd,
+            Arguments<Argument> args) {
         if (!sender.isPlayer(true)) {
             return;
         }
@@ -46,22 +47,30 @@ public class LoginCmd implements CommandListener<Sender, Argument> {
 
             if (url != null) {
                 if (url.expiredOldCode()) {
-                    sender.sendPluginMessage(Component.text("Your old link is now expired", ExTextColor.WARNING));
+                    sender.sendPluginMessage(
+                            Component.text("Your old link is now expired", ExTextColor.WARNING));
                 }
                 sender.getPlayer().sendMessage(Chat.getSenderPlugin(Plugin.WEB)
-                        .append(Component.text("Click here", ExTextColor.PERSONAL, TextDecoration.UNDERLINED))
-                        .append(Component.text(" to open your personal login link", ExTextColor.PERSONAL))
+                        .append(Component.text("Click here", ExTextColor.PERSONAL,
+                                TextDecoration.UNDERLINED))
+                        .append(Component.text(" to open your personal login link",
+                                ExTextColor.PERSONAL))
                         .hoverEvent(HoverEvent.hoverEvent(HoverEvent.Action.SHOW_TEXT,
-                                Component.text("Click to open the link, do NOT share with others", ExTextColor.WARNING)))
-                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, url.getUrl())));
+                                Component.text("Click to open the link, do NOT share with others",
+                                        ExTextColor.WARNING)))
+                        .clickEvent(
+                                ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, url.getUrl())));
             } else {
-                sender.sendPluginMessage(Component.text("Error during login. Please contact an admin!", ExTextColor.WARNING));
+                sender.sendPluginMessage(
+                        Component.text("Error during login. Please contact an admin!",
+                                ExTextColor.WARNING));
             }
         }
     }
 
     @Override
-    public List<String> getTabCompletion(ExCommand<Sender, Argument> cmd, Arguments<Argument> args) {
+    public List<String> getTabCompletion(ExCommand<Sender, Argument> cmd,
+            Arguments<Argument> args) {
         if (args.getLength() == 1) {
             return List.of("login");
         }
@@ -70,6 +79,6 @@ public class LoginCmd implements CommandListener<Sender, Argument> {
 
     @Override
     public void loadCodes(de.timesnake.library.extension.util.chat.Plugin plugin) {
-        this.perm = plugin.createPermssionCode("web", "exweb.login");
+        this.perm = plugin.createPermssionCode("exweb.login");
     }
 }

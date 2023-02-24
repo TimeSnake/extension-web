@@ -31,7 +31,8 @@ public class AccountDatabase {
     protected String url;
 
     public AccountDatabase(String name, String url, String user, String password, String tableName,
-                           String uuidColumnName, String nameColumnName, String codeColumnName, String dateColumnName) {
+            String uuidColumnName, String nameColumnName, String codeColumnName,
+            String dateColumnName) {
         this.url = url;
         this.user = user;
         this.password = password;
@@ -70,12 +71,15 @@ public class AccountDatabase {
         }
 
         try {
-            connection = DriverManager.getConnection(this.getUrl(), this.getUser(), this.getPassword());
+            connection = DriverManager.getConnection(this.getUrl(), this.getUser(),
+                    this.getPassword());
         } catch (SQLNonTransientConnectionException e) {
             Network.printWarning(Plugin.WEB, "Can not connect to web login database");
+            e.printStackTrace();
             return;
         } catch (SQLException e) {
             e.printStackTrace();
+            return;
         }
 
         Network.printText(Plugin.WEB, "Connected to web database");
@@ -110,10 +114,13 @@ public class AccountDatabase {
     public boolean addEntry(UUID uuid, String name, String code) {
         try {
             PreparedStatement ps =
-                    this.connection.prepareStatement("INSERT INTO " + this.tableName + " (" + this.uuidColumnName +
-                            ", " + this.nameColumnName + ", " + this.codeColumnName + ", " + this.dateColumnName + ")" +
-                            "VALUES (\"" + uuid.toString().replace("-", "") +
-                            "\", \"" + name + "\", \"" + code + "\", \"" + DATE_FORMAT.format(new Date()) + "\");");
+                    this.connection.prepareStatement(
+                            "INSERT INTO " + this.tableName + " (" + this.uuidColumnName +
+                                    ", " + this.nameColumnName + ", " + this.codeColumnName + ", "
+                                    + this.dateColumnName + ")" +
+                                    "VALUES (\"" + uuid.toString().replace("-", "") +
+                                    "\", \"" + name + "\", \"" + code + "\", \""
+                                    + DATE_FORMAT.format(new Date()) + "\");");
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -126,8 +133,10 @@ public class AccountDatabase {
     public boolean isEntryExisting(UUID uuid) {
         try {
             ResultSet rs =
-                    this.connection.prepareStatement("SELECT " + this.uuidColumnName + " FROM " + this.tableName + " " +
-                            "WHERE " + this.uuidColumnName + "=\"" + uuid.toString().replace("-", "") + "\";").executeQuery();
+                    this.connection.prepareStatement(
+                            "SELECT " + this.uuidColumnName + " FROM " + this.tableName + " " +
+                                    "WHERE " + this.uuidColumnName + "=\"" + uuid.toString()
+                                    .replace("-", "") + "\";").executeQuery();
             if (rs.next()) {
                 return rs.getString(this.uuidColumnName) != null;
             }
@@ -140,8 +149,9 @@ public class AccountDatabase {
     public boolean updateEntry(UUID uuid, String name, String code) {
         try {
             PreparedStatement ps =
-                    this.connection.prepareStatement("DELETE FROM " + tableName + " WHERE " + this.uuidColumnName +
-                            "=\"" + uuid.toString().replace("-", "") + "\";");
+                    this.connection.prepareStatement(
+                            "DELETE FROM " + tableName + " WHERE " + this.uuidColumnName +
+                                    "=\"" + uuid.toString().replace("-", "") + "\";");
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

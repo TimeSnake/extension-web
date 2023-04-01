@@ -5,7 +5,6 @@
 package de.timesnake.extension.web.login;
 
 import de.timesnake.basic.proxy.util.Network;
-import de.timesnake.database.util.Database;
 import de.timesnake.extension.web.chat.Plugin;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -98,11 +97,8 @@ public class AccountDatabase {
                               RETURN LOWER(CONCAT(LEFT(hex, 8), '-', MID(hex, 9, 4), '-', MID(hex, 13, 4), '-', MID(hex, 17, 4), '-', RIGHT(hex, 12)));
                             END;
                             """);
-            Database.LOGGER.info("Added 'BIN_TO_UUID' function in table '" + this.tableName + "'");
         } catch (SQLException e) {
             e.printStackTrace();
-            Database.LOGGER.warning(
-                    "Could not load bin to uuid function in table " + this.tableName);
         }
 
         try {
@@ -114,11 +110,8 @@ public class AccountDatabase {
                               RETURN UNHEX(CONCAT(REPLACE(uuid, '-', '')));
                             END;
                             """);
-            Database.LOGGER.info("Added 'UUID_TO_BIN' function in table '" + this.tableName + "'");
         } catch (SQLException e) {
             e.printStackTrace();
-            Database.LOGGER.warning(
-                    "Could not load uuid to bin function in table" + this.tableName);
         }
 
         Network.printText(Plugin.WEB, "Connected to web database");

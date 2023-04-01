@@ -16,7 +16,6 @@ public class Config extends ExFile {
     private static final String DATABASE_UUID_COLUMN_NAME = "database.column.uuid";
     private static final String DATABASE_NAME_COLUMN_NAME = "database.column.name";
     private static final String DATABASE_CODE_COLUMN_NAME = "database.column.code";
-    private static final String DATABASE_DATE_COLUMN_NAME = "database.column.date";
 
     private static final String ENABLED = "enabled";
 
@@ -60,10 +59,6 @@ public class Config extends ExFile {
 
     public Integer getVerifcationCodeLength() {
         return super.getLong(VERIFICATION_CODE_LENGTH).intValue();
-    }
-
-    public String getDatabaseDateColumnName() {
-        return super.getString(DATABASE_DATE_COLUMN_NAME);
     }
 
     public boolean isEnabled() {

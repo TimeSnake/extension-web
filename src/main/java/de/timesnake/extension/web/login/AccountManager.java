@@ -32,8 +32,7 @@ public class AccountManager {
                     this.config.getDatabaseUser(), this.config.getDatabasePassword(),
                     this.config.getDatabaseTableName(), this.config.getDatabaseUuidColumnName(),
                     this.config.getDatabaseNameColumnName(),
-                    this.config.getDatabaseCodeColumnName(),
-                    this.config.getDatabaseDateColumnName());
+                    this.config.getDatabaseCodeColumnName());
         } else {
             this.database = null;
         }
@@ -56,11 +55,9 @@ public class AccountManager {
         }
 
         if (this.database.isEntryExisting(user.getUniqueId())) {
-            successfully = this.database.updateEntry(user.getUniqueId(), user.getName(), code);
             oldCode = true;
-        } else {
-            successfully = this.database.addEntry(user.getUniqueId(), user.getName(), code);
         }
+        successfully = this.database.addEntry(user.getUniqueId(), user.getName(), code);
 
         if (!successfully) {
             Network.printWarning(Plugin.WEB,

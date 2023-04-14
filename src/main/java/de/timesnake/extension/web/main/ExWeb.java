@@ -46,7 +46,8 @@ public class ExWeb {
     public void onProxyInitialization(ProxyInitializeEvent event) {
         accountManager = new AccountManager();
 
-        Network.getCommandHandler().addCommand(this, "web", new LoginCmd(), de.timesnake.extension.web.chat.Plugin.WEB);
+        Network.getCommandManager().addCommand(this, "web", new LoginCmd(),
+                de.timesnake.extension.web.chat.Plugin.WEB);
 
     }
 }

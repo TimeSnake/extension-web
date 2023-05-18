@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 
 public class Plugin extends de.timesnake.basic.proxy.util.chat.Plugin {
 
-    public static final Plugin WEB = new Plugin("Web", "XWB", LogHelper.getLogger("Web", Level.INFO));
+  public static final Plugin WEB = new Plugin("Web", "XWB", LogHelper.getLogger("Web", Level.INFO));
 
-    protected Plugin(String name, String code, Logger logger) {
-        super(name, code, logger);
-    }
+  protected Plugin(String name, String code, Logger logger) {
+    super(name, code, logger);
+  }
 }

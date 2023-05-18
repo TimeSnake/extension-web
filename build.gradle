@@ -1,5 +1,11 @@
+group = project.group
+version = '1.0-SNAPSHOT'
+archivesBaseName = 'extension-web'
+var projectId = 35
+
 repositories {
   mavenLocal()
+  mavenCentral()
   maven {
     url = uri 'https://papermc.io/repo/repository/maven-public/'
   }
@@ -31,10 +37,6 @@ dependencies {
   annotationProcessor project.velocity
 }
 
-group = project.group
-version = '1.0-SNAPSHOT'
-archivesBaseName = 'extension-web'
-
 task buildFatJar(type: Jar) {
   duplicatesStrategy = DuplicatesStrategy.EXCLUDE
   classifier = "all"
@@ -59,3 +61,24 @@ jar.finalizedBy(buildFatJar)
 copyJarToPlugins.dependsOn(buildFatJar)
 copyJarToPlugins.dependsOn(deleteOldPluginJar)
 jar.finalizedBy(copyJarToPlugins)
+
+publishing {
+  publications {
+    mavenJavaAll(MavenPublication) {
+      version version + '-all'
+      artifact {
+        file "build/libs/" + archivesBaseName + "-" + version + ".jar"
+      }
+    }
+  }
+
+  repositories {
+    maven {
+      url getDeployUrl(projectId)
+      credentials {
+        username = deploy_token_name
+        password = deploy_token_key
+      }
+    }
+  }
+}

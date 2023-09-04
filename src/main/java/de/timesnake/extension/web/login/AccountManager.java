@@ -5,9 +5,8 @@
 package de.timesnake.extension.web.login;
 
 
-import de.timesnake.basic.proxy.util.Network;
 import de.timesnake.basic.proxy.util.user.User;
-import de.timesnake.extension.web.chat.Plugin;
+import de.timesnake.library.basic.util.Loggers;
 
 public class AccountManager {
 
@@ -18,32 +17,30 @@ public class AccountManager {
       'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
   private final AccountDatabase database;
-  private final Config config;
 
   private final Integer verificationCodeLength;
 
   public AccountManager() {
-    this.config = new Config();
-    Network.printText(Plugin.WEB, "Loaded account config");
+    Config config = new Config();
+    Loggers.WEB.info("Loaded account config");
 
-    if (this.config.isEnabled()) {
-      this.database = new AccountDatabase(this.config.getDatabaseName(),
-          this.config.getDatabaseUrl(),
-          this.config.getDatabaseUser(), this.config.getDatabasePassword(),
-          this.config.getDatabaseTableName(), this.config.getDatabaseUuidColumnName(),
-          this.config.getDatabaseNameColumnName(),
-          this.config.getDatabaseCodeColumnName());
+    if (config.isEnabled()) {
+      this.database = new AccountDatabase(config.getDatabaseName(),
+          config.getDatabaseUrl(),
+          config.getDatabaseUser(), config.getDatabasePassword(),
+          config.getDatabaseTableName(), config.getDatabaseUuidColumnName(),
+          config.getDatabaseNameColumnName(),
+          config.getDatabaseCodeColumnName());
     } else {
       this.database = null;
     }
 
-    this.verificationCodeLength = this.config.getVerifcationCodeLength();
+    this.verificationCodeLength = config.getVerifcationCodeLength();
   }
 
   public LoginUrl registerUser(User user) {
-    Network.printText(Plugin.WEB, "User " + user.getName() + " requested a code", "Register");
+    Loggers.WEB.info("User " + user.getName() + " requested a code");
     String code = this.generateCode();
-    boolean successfully;
     boolean oldCode = false;
 
     if (this.database == null) {
@@ -54,18 +51,14 @@ public class AccountManager {
       return null;
     }
 
-    if (this.database.isEntryExisting(user.getUniqueId())) {
+    if (this.database.containsUser(user.getUniqueId())) {
       oldCode = true;
     }
-    successfully = this.database.addEntry(user.getUniqueId(), user.getName(), code);
 
-    if (!successfully) {
-      Network.printWarning(Plugin.WEB,
-          "Failed to set code in database, user " + user.getName(), "Register");
-      return null;
-    }
-    Network.printText(Plugin.WEB, "User " + user.getName() + " register code: " + code,
-        "Register");
+    this.database.addUser(user.getUniqueId(), user.getName(), code);
+
+
+    Loggers.WEB.info("User " + user.getName() + " register code: " + code);
     return new LoginUrl(code, user.getUniqueId(), user.getName(), oldCode);
   }
 

@@ -12,7 +12,6 @@ import de.timesnake.database.util.object.DatabaseConnector;
 import de.timesnake.library.basic.util.Loggers;
 
 import java.sql.SQLException;
-import java.sql.SQLNonTransientConnectionException;
 import java.util.UUID;
 
 public class AccountDatabase extends DatabaseConnector {
@@ -40,12 +39,8 @@ public class AccountDatabase extends DatabaseConnector {
 
     try {
       super.connect();
-    } catch (SQLNonTransientConnectionException e) {
-      Loggers.WEB.warning("Can not connect to web login database");
-      e.printStackTrace();
-      return;
     } catch (SQLException e) {
-      e.printStackTrace();
+      Loggers.WEB.warning("Can not connect to web login database: " + e.getMessage());
       return;
     }
 

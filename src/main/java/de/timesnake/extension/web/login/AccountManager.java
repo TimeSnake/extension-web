@@ -35,7 +35,7 @@ public class AccountManager {
       this.database = null;
     }
 
-    this.verificationCodeLength = config.getVerifcationCodeLength();
+    this.verificationCodeLength = config.getVerificationCodeLength();
   }
 
   public LoginUrl registerUser(User user) {

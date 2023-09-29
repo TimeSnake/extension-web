@@ -57,7 +57,7 @@ public class Config extends ExFile {
     return super.getString(DATABASE_CODE_COLUMN_NAME);
   }
 
-  public Integer getVerifcationCodeLength() {
+  public Integer getVerificationCodeLength() {
     return super.getLong(VERIFICATION_CODE_LENGTH).intValue();
   }
 

@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2023 timesnake
+ */
+
 package de.timesnake.extension.web.login;
 
 import de.timesnake.database.core.Column;

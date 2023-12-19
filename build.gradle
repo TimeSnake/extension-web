@@ -1,8 +1,11 @@
 plugins {
+  id 'java'
+  id 'java-base'
   id 'java-library'
   id 'maven-publish'
-  id('com.github.johnrengelman.shadow')
+  id('com.github.johnrengelman.shadow') version "8.1.1"
 }
+
 
 group = "de.timesnake"
 version = '2.0'
@@ -61,7 +64,7 @@ configurations.configureEach {
 }
 
 shadowJar {
-    getDestinationDirectory().set(new File(timesnakePluginDir));
+  getDestinationDirectory().set(new File(timesnakePluginDir));
 }
 
 jar.finalizedBy(shadowJar)
@@ -85,4 +88,12 @@ publishing {
       from components.java
     }
   }
+}
+
+tasks.withType(JavaCompile).configureEach {
+  options.encoding = 'UTF-8'
+}
+
+java {
+  withSourcesJar()
 }

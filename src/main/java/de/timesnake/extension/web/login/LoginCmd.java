@@ -5,29 +5,28 @@
 package de.timesnake.extension.web.login;
 
 import de.timesnake.basic.proxy.util.chat.Argument;
+import de.timesnake.basic.proxy.util.chat.CommandListener;
+import de.timesnake.basic.proxy.util.chat.Completion;
 import de.timesnake.basic.proxy.util.chat.Sender;
 import de.timesnake.basic.proxy.util.user.User;
 import de.timesnake.extension.web.chat.Plugin;
 import de.timesnake.extension.web.main.ExWeb;
 import de.timesnake.library.chat.ExTextColor;
+import de.timesnake.library.commands.PluginCommand;
+import de.timesnake.library.commands.simple.Arguments;
 import de.timesnake.library.extension.util.chat.Chat;
 import de.timesnake.library.extension.util.chat.Code;
-import de.timesnake.library.extension.util.cmd.Arguments;
-import de.timesnake.library.extension.util.cmd.CommandListener;
-import de.timesnake.library.extension.util.cmd.ExCommand;
-import java.util.List;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextDecoration;
 
-public class LoginCmd implements CommandListener<Sender, Argument> {
+public class LoginCmd implements CommandListener {
 
-  private Code perm;
+  private final Code perm = Plugin.WEB.createPermssionCode("exweb.login");
 
   @Override
-  public void onCommand(Sender sender, ExCommand<Sender, Argument> cmd,
-      Arguments<Argument> args) {
+  public void onCommand(Sender sender, PluginCommand cmd, Arguments<Argument> args) {
     if (!sender.isPlayer(true)) {
       return;
     }
@@ -69,16 +68,13 @@ public class LoginCmd implements CommandListener<Sender, Argument> {
   }
 
   @Override
-  public List<String> getTabCompletion(ExCommand<Sender, Argument> cmd,
-      Arguments<Argument> args) {
-    if (args.getLength() == 1) {
-      return List.of("login");
-    }
-    return null;
+  public Completion getTabCompletion() {
+    return new Completion(this.perm)
+        .addArgument(new Completion("login"));
   }
 
   @Override
-  public void loadCodes(de.timesnake.library.extension.util.chat.Plugin plugin) {
-    this.perm = plugin.createPermssionCode("exweb.login");
+  public String getPermission() {
+    return this.perm.getPermission();
   }
 }

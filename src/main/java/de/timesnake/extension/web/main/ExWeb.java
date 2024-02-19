@@ -13,10 +13,11 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import de.timesnake.basic.proxy.util.Network;
 import de.timesnake.extension.web.login.AccountManager;
 import de.timesnake.extension.web.login.LoginCmd;
+
 import java.util.logging.Logger;
 
 @Plugin(id = "extension-web", name = "ExWeb", version = "1.0-SNAPSHOT",
-    url = "https://git.timesnake.de", authors = {"MarkusNils"},
+    url = "https://git.timesnake.de", authors = {"timesnake"},
     dependencies = {
         @Dependency(id = "basic-proxy")
     })

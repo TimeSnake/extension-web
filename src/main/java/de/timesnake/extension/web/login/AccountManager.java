@@ -6,7 +6,8 @@ package de.timesnake.extension.web.login;
 
 
 import de.timesnake.basic.proxy.util.user.User;
-import de.timesnake.library.basic.util.Loggers;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AccountManager {
 
@@ -16,13 +17,15 @@ public class AccountManager {
       'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
       'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
+  private final Logger logger = LogManager.getLogger("web.manager");
+
   private final AccountDatabase database;
 
   private final Integer verificationCodeLength;
 
   public AccountManager() {
     Config config = new Config();
-    Loggers.WEB.info("Loaded account config");
+    this.logger.info("Loaded account config");
 
     if (config.isEnabled()) {
       this.database = new AccountDatabase(config.getDatabaseName(),
@@ -39,7 +42,7 @@ public class AccountManager {
   }
 
   public LoginUrl registerUser(User user) {
-    Loggers.WEB.info("User " + user.getName() + " requested a code");
+    this.logger.info("User {} requested a code", user.getName());
     String code = this.generateCode();
     boolean oldCode = false;
 
@@ -58,7 +61,7 @@ public class AccountManager {
     this.database.addUser(user.getUniqueId(), user.getName(), code);
 
 
-    Loggers.WEB.info("User " + user.getName() + " register code: " + code);
+    this.logger.info("User {} register code: {}", user.getName(), code);
     return new LoginUrl(code, user.getUniqueId(), user.getName(), oldCode);
   }
 

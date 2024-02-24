@@ -9,12 +9,15 @@ import de.timesnake.database.core.Column;
 import de.timesnake.database.core.ColumnType;
 import de.timesnake.database.core.DatabaseManager;
 import de.timesnake.database.util.object.DatabaseConnector;
-import de.timesnake.library.basic.util.Loggers;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.UUID;
 
 public class AccountDatabase extends DatabaseConnector {
+
+  private final Logger logger = LogManager.getLogger("web.database");
 
   protected final String tableName;
   protected final VerificationTable verificationTable;
@@ -40,13 +43,13 @@ public class AccountDatabase extends DatabaseConnector {
     try {
       super.connect();
     } catch (SQLException e) {
-      Loggers.WEB.warning("Can not connect to web login database: " + e.getMessage());
+      this.logger.warn("Can not connect to web login database: {}", e.getMessage());
       return;
     }
 
     this.verificationTable.loadFunctions();
 
-    Loggers.WEB.info("Connected to web database");
+    this.logger.info("Connected to web database");
   }
 
   public void addUser(UUID uuid, String name, String code) {

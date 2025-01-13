@@ -6,13 +6,13 @@ package de.timesnake.extension.web.login;
 
 import de.timesnake.database.core.Column;
 import de.timesnake.database.core.Entry;
-import de.timesnake.database.core.table.TableDDL;
+import de.timesnake.database.core.table.DefinitionAndQueryTool;
 import de.timesnake.database.util.object.DatabaseConnector;
 
 import java.util.Set;
 import java.util.UUID;
 
-public class VerificationTable extends TableDDL {
+public class VerificationTable extends DefinitionAndQueryTool {
 
   private final Column<UUID> uuidColumn;
   private final Column<String> nameColumn;

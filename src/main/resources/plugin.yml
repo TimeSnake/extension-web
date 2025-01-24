@@ -1,5 +1,5 @@
 main: de.timesnake.extension.web.main.ExWeb
-version: 2.2.0
+version: ${version}
 name: extension-web
 author: timesnake
 depends: [ basic-proxy ]

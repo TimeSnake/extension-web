@@ -23,6 +23,8 @@ import java.util.logging.Logger;
     })
 public class ExWeb {
 
+  public static final de.timesnake.library.chat.Plugin PLUGIN = new de.timesnake.library.chat.Plugin("Web", "XWB");
+
   public static AccountManager getAccountManager() {
     return accountManager;
   }
@@ -47,8 +49,7 @@ public class ExWeb {
   public void onProxyInitialization(ProxyInitializeEvent event) {
     accountManager = new AccountManager();
 
-    Network.getCommandManager().addCommand(this, "web", new LoginCmd(),
-        de.timesnake.extension.web.chat.Plugin.WEB);
+    Network.getCommandManager().addCommand(this, "web", new LoginCmd(), PLUGIN);
 
   }
 }

@@ -9,11 +9,11 @@ import de.timesnake.basic.proxy.util.chat.CommandListener;
 import de.timesnake.basic.proxy.util.chat.Completion;
 import de.timesnake.basic.proxy.util.chat.Sender;
 import de.timesnake.basic.proxy.util.user.User;
-import de.timesnake.extension.web.chat.Plugin;
 import de.timesnake.extension.web.main.ExWeb;
 import de.timesnake.library.chat.Chat;
 import de.timesnake.library.chat.Code;
 import de.timesnake.library.chat.ExTextColor;
+import de.timesnake.library.chat.Plugin;
 import de.timesnake.library.commands.PluginCommand;
 import de.timesnake.library.commands.simple.Arguments;
 import net.kyori.adventure.text.Component;
@@ -23,7 +23,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 
 public class LoginCmd implements CommandListener {
 
-  private final Code perm = Plugin.WEB.createPermssionCode("exweb.login");
+  private final Code perm = Plugin.SERVER.createPermssionCode("exweb.login");
 
   @Override
   public void onCommand(Sender sender, PluginCommand cmd, Arguments<Argument> args) {
@@ -49,7 +49,7 @@ public class LoginCmd implements CommandListener {
           sender.sendPluginMessage(
               Component.text("Your old link is now expired", ExTextColor.WARNING));
         }
-        sender.getPlayer().sendMessage(Chat.getSenderPlugin(Plugin.WEB)
+        sender.getPlayer().sendMessage(Chat.getSenderPlugin(Plugin.SERVER)
             .append(Component.text("Click here", ExTextColor.PERSONAL,
                 TextDecoration.UNDERLINED))
             .append(Component.text(" to open your personal login link",

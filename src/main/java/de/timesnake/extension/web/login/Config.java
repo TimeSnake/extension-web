@@ -8,60 +8,47 @@ import de.timesnake.basic.proxy.util.file.ExFile;
 
 public class Config extends ExFile {
 
-  private static final String DATABASE_NAME = "database.name";
-  private static final String DATABASE_URL = "database.url";
-  private static final String DATABASE_USER = "database.user";
-  private static final String DATABASE_PASSWORD = "database.password";
-  private static final String DATABASE_TABLE_NAME = "database.table";
-  private static final String DATABASE_UUID_COLUMN_NAME = "database.column.uuid";
-  private static final String DATABASE_NAME_COLUMN_NAME = "database.column.name";
-  private static final String DATABASE_CODE_COLUMN_NAME = "database.column.code";
-
-  private static final String ENABLED = "enabled";
-
-  private static final String VERIFICATION_CODE_LENGTH = "verification_code.length";
-
   public Config() {
-    super("extension-web", "config.toml");
+    super("extension-web", System.getenv("config.toml"));
   }
 
   public String getDatabaseName() {
-    return super.getString(DATABASE_NAME);
+    return this.getString("database.name", System.getenv("TS_WEB_DATABASE_NAME"));
   }
 
   public String getDatabaseUrl() {
-    return super.getString(DATABASE_URL);
+    return this.getString("database.url", System.getenv("TS_WEB_DATABASE_URL"));
   }
 
   public String getDatabaseUser() {
-    return super.getString(DATABASE_USER);
+    return this.getString("database.user", System.getenv("TS_WEB_DATABASE_USER"));
   }
 
   public String getDatabasePassword() {
-    return super.getString(DATABASE_PASSWORD);
+    return this.getString("database.password", System.getenv("TS_WEB_DATABASE_PASSWORD"));
   }
 
   public String getDatabaseTableName() {
-    return super.getString(DATABASE_TABLE_NAME);
+    return this.getString("database.tables.verification", System.getenv("TS_WEB_DATABASE_VERIFICATION_TABLE"));
   }
 
   public String getDatabaseUuidColumnName() {
-    return super.getString(DATABASE_UUID_COLUMN_NAME);
+    return super.getString("database.column.uuid", "uuid");
   }
 
   public String getDatabaseNameColumnName() {
-    return super.getString(DATABASE_NAME_COLUMN_NAME);
+    return super.getString("database.column.name", "username");
   }
 
   public String getDatabaseCodeColumnName() {
-    return super.getString(DATABASE_CODE_COLUMN_NAME);
+    return super.getString("database.column.code", "code");
   }
 
   public Integer getVerificationCodeLength() {
-    return super.getLong(VERIFICATION_CODE_LENGTH).intValue();
+    return super.getLong("verification_code.length", 32L).intValue();
   }
 
   public boolean isEnabled() {
-    return super.getBoolean(ENABLED);
+    return super.getBoolean("enabled", Boolean.valueOf(System.getenv("TS_WEB_ENABLED")));
   }
 }
